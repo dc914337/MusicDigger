@@ -12,10 +12,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Tags.."
+        android:text="Included: tags.."
         android:textColor="@color/colorAccent"
-        android:textSize="12pt"
-        android:id="@+id/tagsView" />
+        android:textSize="10pt"
+        android:id="@+id/includedTagsView" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Excluded: tags.."
+        android:textColor="@color/colorAccent"
+        android:textSize="10pt"
+        android:id="@+id/excludedTagsView" />
 
     <LinearLayout
         android:orientation="horizontal"
@@ -23,26 +32,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="66dp"
-            android:text="~"
-            android:id="@+id/addNotButton"
-            android:layout_weight="0.3" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="66dp"
-            android:text="|"
-            android:id="@+id/addAndButton"
-            android:layout_weight="0.3" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="66dp"
-            android:text="Remove"
-            android:id="@+id/removeButton"
-            android:layout_weight="0.3" />
     </LinearLayout>
 
     <LinearLayout
@@ -69,6 +58,7 @@
         <ListView
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
+            android:longClickable="true"
             android:id="@+id/tagsListView" />
 
         <android.support.design.widget.FloatingActionButton

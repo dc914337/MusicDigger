@@ -35,15 +35,17 @@ public class SearchFragment extends Fragment {
 
     EditText tagSearchTextBox;
     ListView tagsListView;
-    TextView tagsView;
+    TextView includedTagsView;
+    TextView excludedTagsView;
+
     TagsAdapter adapter;
     Button addAndBtn;
     Button removeBtn;
     Button addNotBtn;
+
+
+
     FloatingActionButton searchBtn;
-
-
-
     ArrayList<DigTag> showingTags;
 
     public SearchFragment() {
@@ -58,67 +60,66 @@ public class SearchFragment extends Fragment {
         tagsListView.setAdapter(adapter);
 
         tagSearchTextBox=(EditText) rootView.findViewById(R.id.tagSearchTextBox);
-        tagsView=(TextView)rootView.findViewById(R.id.tagsView);
+        includedTagsView=(TextView)rootView.findViewById(R.id.includedTagsView);
+        excludedTagsView=(TextView)rootView.findViewById(R.id.excludedTagsView);
 
-        addAndBtn= ((Button) rootView.findViewById(R.id.addAndButton));
-        addAndBtn.setOnClickListener(new View.OnClickListener() {
+        //addAndBtn= ((Button) rootView.findViewById(R.id.addAndButton));
+/*        addAndBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 digReqConstructor.addAnd();
                 builderChanged();
             }
-        });
+        });*/
 
-        addNotBtn=((Button) rootView.findViewById(R.id.addNotButton));
-        addNotBtn.setOnClickListener(new View.OnClickListener() {
+        //addNotBtn=((Button) rootView.findViewById(R.id.addNotButton));
+       /* addNotBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 digReqConstructor.addNot();
                 builderChanged();
             }
         });
 
-        removeBtn=((Button) rootView.findViewById(R.id.removeButton));
+        //removeBtn=((Button) rootView.findViewById(R.id.removeButton));
         removeBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 digReqConstructor.removeLast();
                 builderChanged();
             }
-        });
+        });*/
 
         searchBtn=((FloatingActionButton) rootView.findViewById(R.id.searchButton));
         searchBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(final View v) {
 
-                Thread thread = new Thread(new Runnable()
-                {
-                    @Override
-                    public void run()
-                    {
-                        try
-                        {
-                            WebDiggerApi api=new WebDiggerApi();
-                            ArrayList<VKAudio> res= api.getAudios(digReqConstructor.getUri());
+                final String uri=digReqConstructor.getUri();
+                digReqConstructor=new DigRequestConstructor(getContext());
+                builderChanged();
 
-                            if(res ==null || res.size()==0)
-                            {
-                                Snackbar.make(v, "Fuck you!", Snackbar.LENGTH_LONG)
+                Thread thread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            WebDiggerApi api = new WebDiggerApi();
+                            ArrayList<VKAudio> res = api.getAudios(uri);
+
+                            if (res == null || res.size() == 0) {
+                                Snackbar.make(v, "Nothing found!", Snackbar.LENGTH_LONG)
                                         .setAction("Action", null).show();
-                            }
-                            else
-                            {
-                                Snackbar.make(v, String.format("Yay! %s songs found",res.size()), Snackbar.LENGTH_LONG)
+                            } else {
+                                Snackbar.make(v, String.format("Yay! %s songs found", res.size()), Snackbar.LENGTH_LONG)
                                         .setAction("Action", null).show();
-                                for(VKAudio song: res)
-                                {
-                                    DiggerPlayer.addToPlaylist( new PlaylistItem(song.getArtist(),song.getTitle(),song.getDuration(),song.getUrl()));
+
+                                for (VKAudio song : res) {
+                                    DiggerPlayer.addToPlaylist(new PlaylistItem(song.getArtist(), song.getTitle(), song.getDuration(), song.getUrl()));
                                 }
                                 DiggerPlayer.start(getContext());
+
                             }
 
-                        }
-                        catch (Exception e)
-                        {
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
+
 
                     }
                 });
@@ -132,8 +133,20 @@ public class SearchFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
-                digReqConstructor.addTag((DigTag) parent.getItemAtPosition(position));
+                digReqConstructor.addIncludeTag((DigTag) parent.getItemAtPosition(position));
                 builderChanged();
+                tagSearchTextBox.setText("");
+            }
+        });
+
+        tagsListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position,
+                                           long id) {
+                digReqConstructor.addExcludeTag((DigTag) parent.getItemAtPosition(position));
+                builderChanged();
+                tagSearchTextBox.setText("");
+                return true;
             }
         });
 
@@ -152,18 +165,19 @@ public class SearchFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
 
-        }
+            }
         });
 
     }
 
     private void builderChanged()
     {
-        addAndBtn.setEnabled(digReqConstructor.canAnd());
-        removeBtn.setEnabled(digReqConstructor.canRemove());
-        addNotBtn.setEnabled(digReqConstructor.canNot());
-        tagsListView.setEnabled(digReqConstructor.canAddTag());
-        tagsView.setText(digReqConstructor.toString());
+        //addAndBtn.setEnabled(digReqConstructor.canAnd());
+        //removeBtn.setEnabled(digReqConstructor.canRemove());
+       // addNotBtn.setEnabled(digReqConstructor.canNot());
+        //tagsListView.setEnabled(digReqConstructor.canAddTag());
+        includedTagsView.setText(digReqConstructor.includedToString());
+        excludedTagsView.setText(digReqConstructor.excludedToString());
     }
 
 

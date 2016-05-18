@@ -16,6 +16,9 @@ public class DigRequestConstructor {
     DigTag[] tags;
 
     ArrayList<DigRequestItem> requestItems=new ArrayList();
+    ArrayList<DigTag> includedItems=new ArrayList();
+    ArrayList<DigTag> excludedItems=new ArrayList();
+
 
     public DigRequestConstructor(Context ctx)
     {
@@ -31,9 +34,15 @@ public class DigRequestConstructor {
         requestItems.add(new DigRequestItem(DigRequestItemType.And));
     }
 
-    public DigRequestConstructor addTag(DigTag tag)
+    public DigRequestConstructor addIncludeTag(DigTag tag)
     {
-        requestItems.add(tag);
+        includedItems.add(tag);
+        return this;
+    }
+
+    public DigRequestConstructor addExcludeTag(DigTag tag)
+    {
+        excludedItems.add(tag);
         return this;
     }
 
@@ -117,10 +126,53 @@ public class DigRequestConstructor {
         return sb.toString();
     }
 
+    public String excludedToString()
+    {
+        StringBuilder sb=new StringBuilder("Excluded: ");
+        for(DigRequestItem item: excludedItems)
+        {
+            sb.append(item);
+            sb.append(" | ");
+        }
+        if(!excludedItems.isEmpty())
+            return sb.substring(0, sb.length()- 3);
+        else
+            return sb.toString();
+    }
+
+    public String includedToString()
+    {
+        StringBuilder sb=new StringBuilder("Included: ");
+        for(DigRequestItem item: includedItems)
+        {
+            sb.append(item);
+            sb.append(" | ");
+        }
+
+        if(!includedItems.isEmpty())
+            return sb.substring(0, sb.length()- 3);
+        else
+            return sb.toString();
+    }
+
 
     public String getUri()
     {
-      return   toString();
+        StringBuilder sb=new StringBuilder();
+        for(DigRequestItem item: includedItems)
+        {
+            sb.append(item);
+            sb.append(" | ");
+        }
+        for(DigRequestItem item: excludedItems)
+        {
+            sb.append("~");
+            sb.append(item);
+            sb.append(" | ");
+        }
+
+        String res=sb.substring(0, sb.length() - 3);
+      return res;
     }
 
 }
