@@ -11,7 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.dmitry.musicdigger.R;
+import com.digger.dmitry.musicdigger.R;
 import com.example.dmitry.musicdigger.player.PlaylistItem;
 
 import java.util.List;

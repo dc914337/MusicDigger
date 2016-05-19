@@ -15,7 +15,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.dmitry.musicdigger.R;
+import com.digger.dmitry.musicdigger.R;
 import com.example.dmitry.musicdigger.player.DiggerPlayer;
 import com.example.dmitry.musicdigger.player.PlaylistItem;
 import com.example.dmitry.musicdigger.webdigger.DigRequestConstructor;

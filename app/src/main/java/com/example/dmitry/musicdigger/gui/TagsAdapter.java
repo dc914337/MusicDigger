@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.example.dmitry.musicdigger.R;
+import com.digger.dmitry.musicdigger.R;
 import com.example.dmitry.musicdigger.webdigger.DigTag;
 
 import java.util.List;

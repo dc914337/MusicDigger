@@ -114,7 +114,16 @@ public class SearchFragment extends Fragment {
                             if (res == null || res.size() == 0) {
                                 Snackbar.make(v, "Nothing found!", Snackbar.LENGTH_LONG)
                                         .setAction("Action", null).show();
-                                builderChanged();
+
+
+                                Handler mainThread = new Handler(Looper.getMainLooper());
+                                mainThread.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        builderChanged();
+                                    }
+                                });
+
                             } else {
 
 

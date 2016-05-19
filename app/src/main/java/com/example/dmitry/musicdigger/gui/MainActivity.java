@@ -10,7 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.dmitry.musicdigger.R;
+import com.digger.dmitry.musicdigger.R;
+
 
 public class MainActivity extends AppCompatActivity {
 

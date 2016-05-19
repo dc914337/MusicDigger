@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.example.dmitry.musicdigger.R;
+import com.digger.dmitry.musicdigger.R;
 import com.example.dmitry.musicdigger.player.DiggerPlayer;
 
 /**
