@@ -5,16 +5,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".gui.MainActivity$AboutFragment"
-
     android:weightSum="1">
 
+
+    <ImageView
+        android:layout_width="287dp"
+        android:layout_height="224dp"
+        android:id="@+id/imageView"
+        android:src="@drawable/icon"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_weight="0.10"
+        android:paddingTop="10dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/colorAccent"
-        android:textSize="10pt"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="MusicDigger - приложение для поиска новых интересных исполнителей! Как пользоваться? Ввводим запрос состоящий из жанровых тегов и получаем бесконечную ленту музыки, соответсвующую запросу. Долгое нажатие на тэг - исключающее правило, короткое - включающее."
-        android:id="@+id/textView" />
+        android:text="MusicDigger - приложение для поиска новых интересных исполнителей!
+Как пользоваться? Ввводим запрос состоящий из жанровых тегов - долгое нажатие на тэг - исключающее правило, короткое - включающее."
+        android:id="@+id/textView"
+        android:gravity="center_vertical"
+        android:foregroundGravity="center_horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="20dp"
+        android:layout_marginBottom="2dp"
+        android:layout_weight="1.03"
+        android:textSize="23sp" />
 </LinearLayout>

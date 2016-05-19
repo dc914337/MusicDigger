@@ -1,15 +1,17 @@
-package com.example.dmitry.musicdigger.gui;
+package com.digger.dmitry.musicdigger.gui;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.example.dmitry.musicdigger.R;
-import com.example.dmitry.musicdigger.player.DiggerPlayer;
+import com.digger.dmitry.musicdigger.R;
+import com.digger.dmitry.musicdigger.player.DiggerPlayer;
 
 /**
  * Created by Dmitry on 15/05/2016.
@@ -59,8 +61,13 @@ public class PlaylistFragment extends Fragment {
         if (visible) {
             if(adapter!=null)
                 adapter.notifyDataSetChanged();
+
+           final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+           imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+
         }
     }
+
 
 
 

@@ -12,18 +12,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Included: tags.."
+        android:text="Included: tags that will be included"
         android:textColor="@color/colorAccent"
-        android:textSize="10pt"
+        android:textSize="22sp"
         android:id="@+id/includedTagsView" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Excluded: tags.."
+        android:text="Excluded: tags that will be excluded"
         android:textColor="@color/colorAccent"
-        android:textSize="10pt"
+        android:textSize="22sp"
         android:id="@+id/excludedTagsView" />
 
     <LinearLayout
@@ -44,7 +44,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tagSearchTextBox"
-            android:layout_weight="0.8" />
+            android:singleLine="true"
+            android:layout_weight="0.8"
+            android:contentDescription="Quick search"
+            android:hint="Search tag" />
 
     </LinearLayout>
 

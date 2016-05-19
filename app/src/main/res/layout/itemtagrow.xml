@@ -11,7 +11,7 @@
         android:layout_weight="1"
         android:typeface="monospace"
         android:textColor="@color/colorAccent"
-        android:textSize="10pt"
+        android:textSize="30sp"
         android:height="50sp"
         android:paddingLeft="20dp" />
 

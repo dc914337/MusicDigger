@@ -1,4 +1,4 @@
-package com.example.dmitry.musicdigger.gui;
+package com.digger.dmitry.musicdigger.gui;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -11,9 +11,8 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.dmitry.musicdigger.R;
-import com.example.dmitry.musicdigger.player.PlaylistItem;
-
+import com.digger.dmitry.musicdigger.R;
+import com.digger.dmitry.musicdigger.player.PlaylistItem;
 import java.util.List;
 
 /**

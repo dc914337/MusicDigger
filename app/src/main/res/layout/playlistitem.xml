@@ -12,9 +12,10 @@
         android:id="@+id/titleLbl"
         android:textStyle="bold"
         android:textColor="@color/colorAccent"
-        android:textSize="10pt"
-        android:paddingLeft="20dp"
-        android:paddingTop="5dp" />
+        android:textSize="25sp"
+        android:paddingStart="23sp"
+        android:paddingEnd="23sp"
+        android:paddingTop="5sp" />
 
     <LinearLayout
         android:orientation="horizontal"
@@ -30,8 +31,9 @@
             android:text="Medium Text"
             android:id="@+id/artistLbl"
             android:textColor="@color/colorAccent"
-            android:textSize="8pt"
-            android:paddingLeft="20dp"
+            android:textSize="20sp"
+            android:paddingStart="23sp"
+            android:paddingEnd="23sp"
 
             android:layout_weight="0.97" />
 
@@ -41,7 +43,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Small Text"
             android:id="@+id/durationLbl"
-            android:gravity="right" />
+            android:gravity="end" />
 
     </LinearLayout>
 

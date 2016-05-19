@@ -1,4 +1,4 @@
-package com.example.dmitry.musicdigger.player;
+package com.digger.dmitry.musicdigger.player;
 
 import android.content.Context;
 import android.media.MediaPlayer;

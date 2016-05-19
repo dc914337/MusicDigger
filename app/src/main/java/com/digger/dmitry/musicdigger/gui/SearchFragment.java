@@ -1,8 +1,11 @@
-package com.example.dmitry.musicdigger.gui;
+package com.digger.dmitry.musicdigger.gui;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -15,13 +18,13 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.dmitry.musicdigger.R;
-import com.example.dmitry.musicdigger.player.DiggerPlayer;
-import com.example.dmitry.musicdigger.player.PlaylistItem;
-import com.example.dmitry.musicdigger.webdigger.DigRequestConstructor;
-import com.example.dmitry.musicdigger.webdigger.DigTag;
-import com.example.dmitry.musicdigger.webdigger.VKAudio;
-import com.example.dmitry.musicdigger.webdigger.WebDiggerApi;
+import com.digger.dmitry.musicdigger.R;
+import com.digger.dmitry.musicdigger.player.DiggerPlayer;
+import com.digger.dmitry.musicdigger.player.PlaylistItem;
+import com.digger.dmitry.musicdigger.webdigger.DigRequestConstructor;
+import com.digger.dmitry.musicdigger.webdigger.DigTag;
+import com.digger.dmitry.musicdigger.webdigger.VKAudio;
+import com.digger.dmitry.musicdigger.webdigger.WebDiggerApi;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -94,30 +97,48 @@ public class SearchFragment extends Fragment {
                 final String uri=digReqConstructor.getUri();
                 digReqConstructor=new DigRequestConstructor(getContext());
                 DiggerPlayer.clearPlaylist();
-                builderChanged();
+
 
 
                 Thread thread = new Thread(new Runnable() {
                     @Override
                     public void run() {
                         try {
-                            Snackbar.make(v, "Searching audios. Please stand by...", Snackbar.LENGTH_LONG)
-                                    .setAction("Action", null).show();
+                            Snackbar wait= Snackbar.make(v, "Searching audios. Please stand by...", Snackbar.LENGTH_INDEFINITE);
+                            wait.setAction("Action", null).show();
+
                             WebDiggerApi api = new WebDiggerApi();
                             ArrayList<VKAudio> res = api.getAudios(uri);
 
+                            wait.dismiss();
                             if (res == null || res.size() == 0) {
                                 Snackbar.make(v, "Nothing found!", Snackbar.LENGTH_LONG)
                                         .setAction("Action", null).show();
+                                builderChanged();
                             } else {
-                                Snackbar.make(v, String.format("Yay! %s songs found", res.size()), Snackbar.LENGTH_LONG)
-                                        .setAction("Action", null).show();
+
 
                                 for (VKAudio song : res) {
                                     DiggerPlayer.addToPlaylist(new PlaylistItem(song.getArtist(), song.getTitle(), song.getDuration(), song.getUrl()));
                                 }
 
                                 DiggerPlayer.start(getContext());
+
+
+                                Handler mainThread = new Handler(Looper.getMainLooper());
+                                mainThread.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        builderChanged();
+                                        TabLayout tabLayout = (TabLayout)getActivity().findViewById(R.id.tabs);
+                                        TabLayout.Tab tab = tabLayout.getTabAt(2);
+                                        tab.select();
+
+                                    }
+                                });
+
+                                Snackbar.make(v, String.format("Yay! %s songs found", res.size()), Snackbar.LENGTH_LONG)
+                                        .setAction("Action", null).show();
                             }
 
                         } catch (Exception e) {
@@ -132,8 +153,14 @@ public class SearchFragment extends Fragment {
 
 
 
+
             }
         });
+
+
+
+
+
 
         tagsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

@@ -1,4 +1,4 @@
-package com.example.dmitry.musicdigger.webdigger;
+package com.digger.dmitry.musicdigger.webdigger;
 
 import android.content.Context;
 import android.content.res.Resources;
